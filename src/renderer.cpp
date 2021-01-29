@@ -6,6 +6,8 @@ Renderer::Renderer()
 
   m_pWindow = NULL;
   m_pScreenSurface = NULL;
+
+  m_pInput = new Input();
 }
 
 Renderer::~Renderer()
@@ -17,6 +19,9 @@ Renderer::~Renderer()
 
   if (m_pScreenSurface)
     delete m_pScreenSurface; m_pScreenSurface = NULL;
+
+  if (m_pInput)
+    delete m_pInput; m_pInput = NULL;
 }
 
 bool Renderer::Init()
@@ -55,11 +60,20 @@ void Renderer::Shutdown()
 bool Renderer::Run()
 {
   SDL_Event e;
+  m_pInput->Reset();
   while (SDL_PollEvent(&e) != 0)
   {
     if (e.type == SDL_QUIT)
     {
       return false;
+    }
+    else if (e.type == SDL_KEYDOWN)
+    {
+      m_pInput->KeyDown(e.key.keysym);
+    }
+    else if (e.type == SDL_KEYUP)
+    {
+      m_pInput->KeyUp(e.key.keysym);
     }
   }
   return true;
@@ -73,4 +87,9 @@ void Renderer::Render()
 Surface* Renderer::GetScreenSurface()
 {
   return m_pScreenSurface;
+}
+
+Input* Renderer::GetInput()
+{
+  return m_pInput;
 }

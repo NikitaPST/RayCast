@@ -99,7 +99,7 @@ int Clock::CalcAccurateDelay(int nTicks)
   return (SDL_GetTicks() - nFuncStart);
 }
 
-int Clock::Tick()
+int Clock::Tick(float fFramerate)
 {
-  return TickBase(false);
+  return TickBase(false, fFramerate);
 }

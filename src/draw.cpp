@@ -4,6 +4,9 @@
 
 void PutPixel(SDL_Surface* pSurface, Sint16 x, Sint16 y, Uint32 nColor)
 {
+  if (x < 0 || y < 0 || x >= pSurface->w || y >= pSurface->h)
+    return;
+    
   int bpp = pSurface->format->BytesPerPixel;
   Uint8 *p = (Uint8*)pSurface->pixels + y*pSurface->pitch + x * bpp;
   *(Uint32*)p = nColor;

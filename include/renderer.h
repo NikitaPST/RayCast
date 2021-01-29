@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "surface.h"
+#include "input.h"
 
 class Renderer
 {
@@ -18,8 +19,11 @@ public:
   void Shutdown();
 
   Surface* GetScreenSurface();
+  Input* GetInput();
 private:
   bool m_bDisposed;
+
+  Input* m_pInput;
 
   SDL_Window* m_pWindow;
   Surface* m_pScreenSurface;
