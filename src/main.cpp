@@ -2,18 +2,21 @@
 #include <stdio.h>
 #include <array>
 #include <cmath>
+#include <tuple>
 
 #include "settings.h"
 #include "renderer.h"
 #include "clock.h"
 #include "draw.h"
 #include "player.h"
+#include "map.h"
 
 int main(int argc, char* args[])
 {
   Renderer* pRenderer = new Renderer();
   Clock* pClock = new Clock();
   Player* pPlayer = new Player(PLAYER_POS_X, PLAYER_POS_Y, 0.0f, PLAYER_SPEED);
+  Map* pMap = new Map("resources/test.map");
 
   if (pRenderer->Init())
   {
@@ -40,6 +43,15 @@ int main(int argc, char* args[])
           (pPlayer->GetY() + SCREEN_WIDTH * sin(pPlayer->GetAngle())),
           0xFF00FF00);
 
+        for (std::tuple<int, int> coord : *pMap)
+        {
+          int x = std::get<0>(coord);
+          int y = std::get<1>(coord);
+
+          DrawFillRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
+            0xFF282828);
+        }
+
         pRenderer->Render();
         pClock->Tick(FPS);
       }
@@ -56,6 +68,7 @@ int main(int argc, char* args[])
     printf("Initialization - Failure!\n");
   }
 
+  delete pMap; pMap = NULL;
   delete pPlayer; pPlayer = NULL;
   delete pClock; pClock = NULL;
   delete pRenderer; pRenderer = NULL;
