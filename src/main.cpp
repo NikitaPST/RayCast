@@ -48,7 +48,7 @@ int main(int argc, char* args[])
           int x = std::get<0>(coord);
           int y = std::get<1>(coord);
 
-          DrawFillRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
+          DrawRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
             0xFF282828);
         }
 

@@ -15,8 +15,8 @@ public:
   int GetY();
   float GetAngle();
 private:
-  int m_nX;
-  int m_nY;
+  float m_fX;
+  float m_fY;
   float m_fAngle;
   int m_nSpeed;
 };
