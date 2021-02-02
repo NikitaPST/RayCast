@@ -6,6 +6,7 @@
 #include <set>
 
 #define TILE_SIZE 100
+#define TILE std::tuple<int, int>
 
 class Map
 {
@@ -13,12 +14,13 @@ public:
   Map(std::string strFileName);
   ~Map();
 
-  std::set<std::tuple<int, int>>::iterator begin();
-  std::set<std::tuple<int, int>>::iterator end();
+  std::set<TILE>::iterator begin();
+  std::set<TILE>::iterator end();
+  size_t count(TILE val);
 private:
   int m_nWidth;
   int m_nHeight;
-  std::set<std::tuple<int, int>> m_MapSet;
+  std::set<TILE> m_MapSet;
 };
 
 #endif

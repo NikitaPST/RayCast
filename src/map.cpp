@@ -31,12 +31,17 @@ Map::~Map()
 {
 }
 
-std::set<std::tuple<int, int>>::iterator Map::begin()
+std::set<TILE>::iterator Map::begin()
 {
   return m_MapSet.begin();
 }
 
-std::set<std::tuple<int, int>>::iterator Map::end()
+std::set<TILE>::iterator Map::end()
 {
   return m_MapSet.end();
+}
+
+size_t Map::count(TILE val)
+{
+  return m_MapSet.count(val);
 }

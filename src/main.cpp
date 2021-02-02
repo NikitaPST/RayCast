@@ -10,6 +10,7 @@
 #include "draw.h"
 #include "player.h"
 #include "map.h"
+#include "ray_casting.h"
 
 int main(int argc, char* args[])
 {
@@ -35,6 +36,9 @@ int main(int argc, char* args[])
           pRenderer->GetInput()->GetKeysPressed();
 
         pPlayer->Move(aKeysPressed);
+
+        RayCasting(pScreenSurface, pMap, pPlayer->GetX(), pPlayer->GetY(),
+          pPlayer->GetAngle());
 
         DrawFillCircle(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(), 12,
           0xFF00FF00);

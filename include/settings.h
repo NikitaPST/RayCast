@@ -10,4 +10,10 @@
 
 #define PLAYER_SPEED 2
 
+#define PI 3.14159265358979323846
+#define FOV (PI / 3.0)
+#define NUM_RAYS 120
+#define MAX_DEPTH 800
+#define DELTA_ANGLE (FOV / NUM_RAYS)
+
 #endif
