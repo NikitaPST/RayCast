@@ -1,12 +1,10 @@
 #include "draw.h"
 
-#include <stdio.h>
-
 void PutPixel(SDL_Surface* pSurface, Sint16 x, Sint16 y, Uint32 nColor)
 {
   if (x < 0 || y < 0 || x >= pSurface->w || y >= pSurface->h)
     return;
-    
+
   int bpp = pSurface->format->BytesPerPixel;
   Uint8 *p = (Uint8*)pSurface->pixels + y*pSurface->pitch + x * bpp;
   *(Uint32*)p = nColor;
@@ -200,4 +198,11 @@ void DrawFillCircle(Surface* pSurface, Sint16 x0, Sint16 y0, Uint16 r,
   {
     SDL_UnlockSurface(pInnerSurface);
   }
+}
+
+Uint32 FromRGB(Surface* pSurface, Uint8 r, Uint8 g, Uint8 b)
+{
+  SDL_Surface* pInnerSurface = pSurface->GetInnerSurface();
+
+  return SDL_MapRGB(pInnerSurface->format, r, g, b);
 }

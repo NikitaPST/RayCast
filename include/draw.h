@@ -20,4 +20,6 @@ void DrawCircle(Surface* pSurface, Sint16 x0, Sint16 y0, Uint16 r,
 void DrawFillCircle(Surface* pSurface, Sint16 x0, Sint16 y0, Uint16 r,
   Uint32 nColor);
 
+Uint32 FromRGB(Surface* pSurface, Uint8 r, Uint8 g, Uint8 b);
+
 #endif

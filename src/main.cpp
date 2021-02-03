@@ -37,24 +37,29 @@ int main(int argc, char* args[])
 
         pPlayer->Move(aKeysPressed);
 
+        DrawFillRect(pScreenSurface, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2,
+          0xFF0000FF);
+        DrawFillRect(pScreenSurface, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH,
+          SCREEN_HEIGHT, 0xFF282828);
+
         RayCasting(pScreenSurface, pMap, pPlayer->GetX(), pPlayer->GetY(),
           pPlayer->GetAngle());
 
-        DrawFillCircle(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(), 12,
-          0xFF00FF00);
-        DrawLine(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(),
-          (pPlayer->GetX() + SCREEN_WIDTH * cos(pPlayer->GetAngle())),
-          (pPlayer->GetY() + SCREEN_WIDTH * sin(pPlayer->GetAngle())),
-          0xFF00FF00);
-
-        for (std::tuple<int, int> coord : *pMap)
-        {
-          int x = std::get<0>(coord);
-          int y = std::get<1>(coord);
-
-          DrawRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
-            0xFF282828);
-        }
+        // DrawFillCircle(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(), 12,
+        //   0xFF00FF00);
+        // DrawLine(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(),
+        //   (pPlayer->GetX() + SCREEN_WIDTH * cos(pPlayer->GetAngle())),
+        //   (pPlayer->GetY() + SCREEN_WIDTH * sin(pPlayer->GetAngle())),
+        //   0xFF00FF00);
+        //
+        // for (std::tuple<int, int> coord : *pMap)
+        // {
+        //   int x = std::get<0>(coord);
+        //   int y = std::get<1>(coord);
+        //
+        //   DrawRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
+        //     0xFF282828);
+        // }
 
         pRenderer->Render();
         pClock->Tick(FPS);

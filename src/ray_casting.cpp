@@ -5,6 +5,10 @@
 #include <cmath>
 #include <tuple>
 
+const float DIST = NUM_RAYS / (2 * std::tan(FOV / 2.0));
+const float PROJ_COEFF = 3 * DIST * TILE_SIZE;
+const int SCALE = (int)(SCREEN_WIDTH / NUM_RAYS);
+
 void RayCasting(Surface* pSurface, Map* pMap, int nPlayerX, int nPlayerY,
   float fPlayerAngle)
 {
@@ -20,11 +24,22 @@ void RayCasting(Surface* pSurface, Map* pMap, int nPlayerX, int nPlayerY,
     {
       float fX = nXo + nDepth * fCosA;
       float fY = nYo + nDepth * fSinA;
-      DrawLine(pSurface, nPlayerX, nPlayerY, (int)fX, (int)fY, 0xFF282828);
+      //DrawLine(pSurface, nPlayerX, nPlayerY, (int)fX, (int)fY, 0xFF282828);
       TILE tile = std::make_tuple(
         (int)(fX / TILE_SIZE) * TILE_SIZE, (int)(fY / TILE_SIZE) * TILE_SIZE);
       if (pMap->count(tile))
-        break;
+      {
+          float fDepth = nDepth * std::cos(fPlayerAngle - fCurAngle);
+          float fProjHeight = PROJ_COEFF / fDepth;
+          Uint8 nColor = (Uint8)(255 / (1 + fDepth * fDepth * 0.0001));
+          DrawFillRect(pSurface, nRay*SCALE,
+            SCREEN_HEIGHT / 2 - (int)(fProjHeight / 2),
+            nRay*SCALE + SCALE,
+            SCREEN_HEIGHT / 2 - (int)(fProjHeight / 2) + (int)fProjHeight,
+            FromRGB(pSurface, nColor / 2, nColor, nColor / 3)
+          );
+          break;
+      }
     }
     fCurAngle += DELTA_ANGLE;
   }
