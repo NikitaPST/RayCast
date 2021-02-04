@@ -10,7 +10,7 @@
 #include "draw.h"
 #include "player.h"
 #include "map.h"
-#include "ray_casting.h"
+#include "visualizer.h"
 
 int main(int argc, char* args[])
 {
@@ -28,6 +28,7 @@ int main(int argc, char* args[])
       printf("Window Creation - Success\n");
 
       Surface* pScreenSurface = pRenderer->GetScreenSurface();
+      Visualizer* pVisualizer = new Visualizer(pScreenSurface);
       while (pRenderer->Run())
       {
         pScreenSurface->Fill(0x00, 0x00, 0x00);
@@ -37,13 +38,10 @@ int main(int argc, char* args[])
 
         pPlayer->Move(aKeysPressed);
 
-        DrawFillRect(pScreenSurface, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2,
-          0xFF0000FF);
-        DrawFillRect(pScreenSurface, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH,
-          SCREEN_HEIGHT, 0xFF282828);
-
-        RayCasting(pScreenSurface, pMap, pPlayer->GetX(), pPlayer->GetY(),
+        pVisualizer->RenderBackground();
+        pVisualizer->RenderWorld(pMap, pPlayer->GetX(), pPlayer->GetY(),
           pPlayer->GetAngle());
+        pVisualizer->RenderFps(pClock);
 
         // DrawFillCircle(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(), 12,
         //   0xFF00FF00);
@@ -64,6 +62,8 @@ int main(int argc, char* args[])
         pRenderer->Render();
         pClock->Tick(FPS);
       }
+
+      delete pVisualizer; pVisualizer = NULL;
     }
     else
     {

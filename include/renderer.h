@@ -2,6 +2,7 @@
 #define _RENDERER_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "surface.h"
 #include "input.h"

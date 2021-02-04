@@ -103,3 +103,8 @@ int Clock::Tick(float fFramerate)
 {
   return TickBase(false, fFramerate);
 }
+
+float Clock::GetFps()
+{
+  return m_fFps;
+}

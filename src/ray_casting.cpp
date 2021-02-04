@@ -31,12 +31,12 @@ void RayCasting(Surface* pSurface, Map* pMap, int nPlayerX, int nPlayerY,
       {
           float fDepth = nDepth * std::cos(fPlayerAngle - fCurAngle);
           float fProjHeight = PROJ_COEFF / fDepth;
-          Uint8 nColor = (Uint8)(255 / (1 + fDepth * fDepth * 0.0001));
+          Uint8 nColor = (Uint8)(255 / (1 + fDepth * fDepth * 0.00002));
           DrawFillRect(pSurface, nRay*SCALE,
             SCREEN_HEIGHT / 2 - (int)(fProjHeight / 2),
             nRay*SCALE + SCALE,
             SCREEN_HEIGHT / 2 - (int)(fProjHeight / 2) + (int)fProjHeight,
-            FromRGB(pSurface, nColor / 2, nColor, nColor / 3)
+            FromRGB(pSurface, nColor, nColor / 2, nColor / 3)
           );
           break;
       }

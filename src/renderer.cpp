@@ -26,7 +26,7 @@ Renderer::~Renderer()
 
 bool Renderer::Init()
 {
-  return (SDL_Init(SDL_INIT_VIDEO) == 0);
+  return (SDL_Init(SDL_INIT_VIDEO) == 0 && TTF_Init() == 0);
 }
 
 bool Renderer::CreateWindow(const int nWidth, const int nHeight)
@@ -52,6 +52,7 @@ void Renderer::Shutdown()
     m_pWindow = NULL;
   }
 
+  TTF_Quit();
   SDL_Quit();
 
   m_bDisposed = true;

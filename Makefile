@@ -16,10 +16,10 @@ OBJS := $(SRCS_BASE:%=$(OBJ_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
-CPP_FLAGS := $(INC_FLAGS) -MMD -MP -lSDL2
+CPP_FLAGS := $(INC_FLAGS) -MMD -MP -lSDL2 -lSDL2_ttf
 
 all: $(OBJS)
-	$(CXX) $(OBJS) -lSDL2 -o $(BUILD_DIR)/$(TARGET_EXEC) $(LDFLAGS)
+	$(CXX) $(OBJS) -lSDL2 -lSDL2_ttf -o $(BUILD_DIR)/$(TARGET_EXEC) $(LDFLAGS)
 
 #$(BUILD_DIR)/%.c.o: $(SRC_DIRS)/%.c
 #	echo $@

@@ -8,6 +8,7 @@ public:
   ~Clock();
 
   int Tick(float fFramerate = 0.0f);
+  float GetFps();
 private:
   int m_nLastTick;
   int m_nFpsCount;
