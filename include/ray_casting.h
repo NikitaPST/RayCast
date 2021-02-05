@@ -7,4 +7,7 @@
 void RayCasting(Surface* pSurface, Map* pMap, int nPlayerX, int nPlayerY,
   float fPlayerAngle);
 
+void RayCastingNaive(Surface* pSurface, Map* pMap, int nPlayerX, int nPlayerY,
+  float fPlayerAngle);
+
 #endif
