@@ -7,6 +7,7 @@ class Surface
 {
 public:
   Surface(SDL_Surface* pSurface, bool bNonDisposable = false);
+  Surface(int nWidth, int nHeight, bool bNonDisposable = false);
   ~Surface();
 
   void Shutdown();

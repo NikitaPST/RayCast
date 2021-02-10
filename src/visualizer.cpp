@@ -4,9 +4,10 @@
 #include "ray_casting.h"
 #include "color.h"
 
-Visualizer::Visualizer(Surface* pSurface)
+Visualizer::Visualizer(Surface* pSurface, Surface* pMapSurface)
 {
   m_pSurface = pSurface;
+  m_pMapSurface = pMapSurface;
   m_pFont =
     new Font("/usr/share/fonts/liberation-sans/LiberationSans-Bold.ttf",
     36, Color::ColorFromRGB(255, 0, 0));
@@ -39,4 +40,31 @@ void Visualizer::RenderFps(Clock* pClock)
   m_pSurface->Blit(pFpsSurf, SCREEN_WIDTH - 65, 5);
   pFpsSurf->Shutdown();
   delete pFpsSurf; pFpsSurf = NULL;
+}
+
+void Visualizer::RenderMiniMap(Player* pPlayer, Map* pMap)
+{
+  int nMapX = pPlayer->GetX() / MAP_SCALE;
+  int nMapY = pPlayer->GetY() / MAP_SCALE;
+
+  m_pMapSurface->Fill(0x00, 0x00, 0x00);
+
+  DrawLine(m_pMapSurface, nMapX, nMapY,
+    (nMapX + 12 * cos(pPlayer->GetAngle())),
+    (nMapY + 12 * sin(pPlayer->GetAngle())),
+    0xFFDCDC00);
+  DrawFillCircle(m_pMapSurface, nMapX, nMapY, 5, 0xFFDC0000);
+
+  for (auto it = pMap->begin_minimap(),
+    end = pMap->end_minimap(); it != end; it++)
+  {
+    std::tuple<int, int> coord = *it;
+    int x = std::get<0>(coord);
+    int y = std::get<1>(coord);
+
+    DrawRect(m_pMapSurface, x, y, x + MAP_TILE_SIZE, y + MAP_TILE_SIZE,
+      0xFF005000);
+  }
+
+  m_pSurface->Blit(m_pMapSurface, MAP_POS_X, MAP_POS_Y);
 }

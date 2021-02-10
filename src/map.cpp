@@ -18,6 +18,8 @@ Map::Map(std::string strFileName)
       {
           m_MapSet.insert(std::make_tuple(i * TILE_SIZE,
             m_nHeight * TILE_SIZE));
+          m_MiniMapSet.insert(std::make_tuple(i * MAP_TILE_SIZE,
+            m_nHeight * MAP_TILE_SIZE));
       }
     }
     m_nWidth = std::max((int)strLine.length(), m_nWidth);
@@ -44,4 +46,14 @@ std::set<TILE>::iterator Map::end()
 size_t Map::count(TILE val)
 {
   return m_MapSet.count(val);
+}
+
+std::set<TILE>::iterator Map::begin_minimap()
+{
+  return m_MiniMapSet.begin();
+}
+
+std::set<TILE>::iterator Map::end_minimap()
+{
+  return m_MiniMapSet.end();
 }

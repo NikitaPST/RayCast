@@ -12,8 +12,12 @@
 
 #define PI 3.14159265358979323846
 #define FOV (PI / 3.0)
-#define NUM_RAYS 120
+#define NUM_RAYS 300
 #define MAX_DEPTH 800
 #define DELTA_ANGLE (FOV / NUM_RAYS)
+
+#define MAP_SCALE 5
+#define MAP_POS_X 0
+#define MAP_POS_Y (SCREEN_HEIGHT - SCREEN_HEIGHT / MAP_SCALE)
 
 #endif

@@ -28,7 +28,9 @@ int main(int argc, char* args[])
       printf("Window Creation - Success\n");
 
       Surface* pScreenSurface = pRenderer->GetScreenSurface();
-      Visualizer* pVisualizer = new Visualizer(pScreenSurface);
+      Surface* pMapSurface = new Surface(SCREEN_WIDTH / MAP_SCALE,
+        SCREEN_HEIGHT / MAP_SCALE);
+      Visualizer* pVisualizer = new Visualizer(pScreenSurface, pMapSurface);
       while (pRenderer->Run())
       {
         pScreenSurface->Fill(0x00, 0x00, 0x00);
@@ -41,29 +43,15 @@ int main(int argc, char* args[])
         pVisualizer->RenderBackground();
         pVisualizer->RenderWorld(pMap, pPlayer->GetX(), pPlayer->GetY(),
           pPlayer->GetAngle());
+        pVisualizer->RenderMiniMap(pPlayer, pMap);
         pVisualizer->RenderFps(pClock);
-
-        // DrawFillCircle(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(), 12,
-        //   0xFF00FF00);
-        // DrawLine(pScreenSurface, pPlayer->GetX(), pPlayer->GetY(),
-        //   (pPlayer->GetX() + SCREEN_WIDTH * cos(pPlayer->GetAngle())),
-        //   (pPlayer->GetY() + SCREEN_WIDTH * sin(pPlayer->GetAngle())),
-        //   0xFF00FF00);
-        //
-        // for (std::tuple<int, int> coord : *pMap)
-        // {
-        //   int x = std::get<0>(coord);
-        //   int y = std::get<1>(coord);
-        //
-        //   DrawRect(pScreenSurface, x, y, x + TILE_SIZE, y + TILE_SIZE,
-        //     0xFF282828);
-        // }
 
         pRenderer->Render();
         pClock->Tick(FPS);
       }
 
       delete pVisualizer; pVisualizer = NULL;
+      delete pMapSurface; pMapSurface = NULL;
     }
     else
     {
